@@ -134,7 +134,7 @@
         }
         if(state.phase !== 'browsing') return;
         event.preventDefault();
-        const gain=gesture.pointerType==='touch'?2:1;
+        const gain=gesture.pointerType==='touch'?10:1;
         controller.setPosition(gesture.position-dx*gain/Math.max(110,Math.min(260,stage.clientWidth*.25)));
       } else if(event.pointerType==='mouse'&&fine.matches&&!event.buttons&&!motion.matches&&state.phase==='browsing') {
         const rect=stage.getBoundingClientRect();
