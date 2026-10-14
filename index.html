@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="张伟博与南青、赞诗的私人离线音乐档案。本次收录九张发行，提供立体唱片架与专辑资料。">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; script-src 'self' file:; style-src 'self' file: 'unsafe-inline'; img-src 'self' file: data:; media-src 'self' file: blob:; connect-src 'none'; font-src data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>张伟博 · 私人音乐档案</title>
+  <script src="js/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/title-font.css">
+  <link rel="stylesheet" href="assets/body-font.css">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/shelf.css">
+  <link rel="stylesheet" href="assets/player.css">
+  <link rel="stylesheet" href="assets/event-gallery.css">
+  <script defer src="data/catalog.js"></script>
+  <script defer src="js/theme-control.js"></script>
+  <script defer src="data/content.js"></script>
+  <script defer src="data/audio-sources.js"></script>
+  <script defer src="js/source.js"></script>
+  <script defer src="js/player.js"></script>
+  <script defer src="js/player-view.js"></script>
+  <script defer src="assets/vendor/three-0.186.1.min.js"></script>
+  <script defer src="assets/textures/covers.js"></script>
+  <script defer src="js/shelf-state.js"></script>
+  <script defer src="assets/textures/case/cd-transparent.js"></script>
+  <script defer src="js/yeverse-case.js"></script>
+  <script defer src="js/jewel-case.js"></script>
+  <script defer src="js/shelf-scene.js"></script>
+  <script defer src="js/shelf.js"></script>
+  <script defer src="js/navigation.js"></script>
+  <script defer src="js/visitor-view.js"></script>
+  <script defer src="js/app.js"></script>
+  <script defer src="data/events.js"></script>
+  <script defer src="js/event-gallery.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <a class="wordmark" href="#works" aria-label="张伟博，作品首页">张 伟 博</a>
+    <nav aria-label="主导航"><a href="#works" data-nav="works">作品</a><a href="#timeline" data-nav="timeline">历程</a><a href="#about" data-nav="about">关于</a></nav>
+    <button id="theme-toggle" type="button" class="theme-toggle" aria-label="切换到深色主题">深色</button>
+  </header>
+  <main id="main" tabindex="-1">
+    <section id="works" data-page="works" aria-labelledby="artist-name">
+      <div class="hero">
+        <p class="eyebrow">私 人 音 乐 档 案</p>
+        <h1 id="artist-name" tabindex="-1">张伟博</h1>
+        <p class="roman-name" lang="en">ZHANG WEIBO</p>
+        <p class="projects"><button data-band="nanqing">南青</button><span aria-hidden="true">／</span><button data-band="zanshi">赞诗</button></p>
+        <a class="browse-link" href="#collection">浏览作品 <span aria-hidden="true">↓</span></a>
+      </div>
+      <div id="collection" class="works-collection">
+        <div class="section-heading"><div><p class="eyebrow">SELECTED RELEASES</p><h2>作品档案</h2></div><div class="filters" role="group" aria-label="按乐队筛选"><button data-filter="all" aria-pressed="true">全部</button><span aria-hidden="true">/</span><button data-filter="nanqing" aria-pressed="false">南青</button><span aria-hidden="true">/</span><button data-filter="zanshi" aria-pressed="false">赞诗</button></div></div>
+        <p id="filter-status" class="sr-only" role="status">显示全部 9 张作品</p>
+        <div id="shelf-stage" class="shelf-stage" role="region" aria-label="唱片架" tabindex="0"><div id="shelf-track" class="shelf-track"></div></div>
+        <p id="shelf-status" class="sr-only" role="status" aria-live="polite"></p>
+        <p id="shelf-instructions" class="sr-only">收盒时横向移动或拖动浏览 · 轻点开盒 · 方向键选片，Enter 打开，Esc 收回</p>
+        <section id="album-detail" class="album-detail" aria-labelledby="album-title" tabindex="-1" hidden></section>
+      </div>
+    </section>
+    <section id="timeline" class="editorial-page" data-page="timeline" aria-labelledby="timeline-heading" hidden>
+      <p class="eyebrow">RELEASE HISTORY</p><h1 id="timeline-heading" tabindex="-1">历程</h1>
+      <p class="page-intro">从发行资料，回看创作的足迹。</p>
+      <div id="timeline-content"></div>
+    </section>
+    <section id="about" class="editorial-page" data-page="about" aria-labelledby="about-heading" hidden>
+      <p class="eyebrow">PERSON & BANDS</p><h1 id="about-heading" tabindex="-1">关于</h1>
+      <p class="page-intro">一个创作者，两支乐队。</p><div id="about-content"></div>
+    </section>
+    <noscript><p class="notice">请在 Chrome 中启用 JavaScript 以浏览唱片与专辑资料。</p></noscript>
+  </main>
+  <footer class="site-footer">私人离线档案 <span>·</span> 非官方网站</footer>
+</body>
+</html>

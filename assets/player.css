@@ -1,0 +1,48 @@
+/* The single persistent player sits outside the page router and inline detail. */
+.player {
+  position:fixed; inset:auto 0 0; z-index:10;
+  display:grid; grid-template-columns:52px minmax(160px,1fr) minmax(240px,1.5fr) 145px;
+  gap:20px; align-items:center; min-height:104px;
+  padding:10px clamp(18px,4vw,64px) calc(10px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--rule);
+  background-color:var(--paper); background-image:var(--paper-image);
+  background-repeat:repeat; background-size:var(--paper-scale);
+  background-position:center top; background-attachment:fixed;
+}
+.player-cover { grid-column:1; width:52px; height:52px; object-fit:contain; }
+.player-info { grid-column:2; min-width:0; }
+.player-info p { margin:0; }
+.player-title { font-size:15px; line-height:1.5; }
+.player-album,.player-status { font-size:13px; line-height:1.7; color:var(--muted); }
+.player-transport { grid-column:3; min-width:0; }
+.player-controls { display:flex; justify-content:center; align-items:center; gap:12px; }
+.player-controls button { border:0; font-size:13px; padding:0 8px; }
+.player-controls .player-play { min-width:70px; border:1px solid var(--rule); border-radius:2px; }
+.player-progress { display:flex; align-items:center; gap:10px; min-width:0; }
+.player-progress input { width:100%; margin:0; }
+.time { font:500 13px "Archive Serif",Georgia,serif; color:var(--muted); white-space:nowrap; }
+.player-volume { grid-column:4; display:flex; align-items:center; gap:5px; min-width:0; }
+.player-volume button { border:0; font-size:13px; padding:0 4px; }
+.player-volume input { width:82px; }
+.player-system-volume { font-size:13px; color:var(--muted); margin:0; }
+@media(max-width:1000px) {
+  .player { grid-template-columns:44px minmax(120px,1fr) minmax(200px,1fr); gap:6px 15px; }
+  .player-cover { width:44px; height:44px; grid-row:1; }
+  .player-info { grid-row:1; }
+  .player-transport { grid-row:1 / 3; }
+  .player-volume { grid-column:1 / 3; grid-row:2; }
+  .player-volume input { width:80px; }
+}
+@media(max-width:600px) {
+  .player { grid-template-columns:36px minmax(0,1fr); gap:4px 10px; padding:10px 16px calc(8px + env(safe-area-inset-bottom)); }
+  .player-cover { width:36px; height:36px; }
+  .player-title { font-size:15px; }
+  .player-status,.player-album { font-size:13px; }
+  .player-transport { grid-column:1 / -1; grid-row:2; display:grid; grid-template-columns:1fr; }
+  .player-controls { gap:12px; }
+  .player-controls button { font-size:13px; }
+  .player-progress { grid-row:2; }
+  .player-volume { grid-column:1 / -1; grid-row:3; justify-content:center; }
+  .player-volume input { width:100px; }
+  .player-system-volume { font-size:13px; }
+}
