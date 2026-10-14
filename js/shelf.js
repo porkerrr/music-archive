@@ -118,7 +118,7 @@
       if((event.pointerType==='mouse' && event.button!==0)||!ready) return;
       controller.setPosition(visualPosition);
       hitId=scene.pick(event.clientX,event.clientY);
-      gesture={id:event.pointerId,x:event.clientX,y:event.clientY,position:visualPosition,moved:false,hit:hitId};
+      gesture={id:event.pointerId,pointerType:event.pointerType,x:event.clientX,y:event.clientY,position:visualPosition,moved:false,hit:hitId};
     });
     stage.addEventListener('pointermove', event => {
       if(!ready) return;
@@ -134,7 +134,8 @@
         }
         if(state.phase !== 'browsing') return;
         event.preventDefault();
-        controller.setPosition(gesture.position-dx/Math.max(110,Math.min(260,stage.clientWidth*.25)));
+        const gain=gesture.pointerType==='touch'?2:1;
+        controller.setPosition(gesture.position-dx*gain/Math.max(110,Math.min(260,stage.clientWidth*.25)));
       } else if(event.pointerType==='mouse'&&fine.matches&&!event.buttons&&!motion.matches&&state.phase==='browsing') {
         const rect=stage.getBoundingClientRect();
         const ratio=Math.max(0,Math.min(1,(event.clientX-rect.left-rect.width*.08)/(rect.width*.84)));
