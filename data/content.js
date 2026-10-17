@@ -95,7 +95,7 @@ window.MUSIC_CONTENT = {
       "formation": {
         "status": "conflict",
         "date": null,
-        "displayText": "大学时期组建，确切年份待核",
+        "displayText": "大学时期",
         "alternatives": [
           {
             "date": "2016-11",
@@ -755,6 +755,44 @@ window.MUSIC_CONTENT = {
   ],
   "releaseTimeline": [
     {
+      "eventId": "story-childhood-opera",
+      "type": "story",
+      "title": "音乐启蒙｜从戏曲开始",
+      "description": "张伟博的母亲喜欢戏曲。他小时候最早学会的唱段之一，是《谁说女子不如男》。这段童年记忆，也成为他后来尝试用摇滚演绎《花木兰》的起点。",
+      "displayDate": "童年",
+      "eventDate": null,
+      "eventDatePrecision": "unknown",
+      "sortOrder": 10,
+      "sortBasis": "人生阶段：童年，先于大学组队；无确切年份。",
+      "artistIds": [
+        "nanqing"
+      ],
+      "image": null,
+      "sourceIds": [
+        "interview-zhengguan-20221030"
+      ],
+      "interviewPublishedDate": "2022-10-30"
+    },
+    {
+      "eventId": "story-nanqing-formation",
+      "type": "story",
+      "title": "南青组建｜看完一场演出之后",
+      "description": "大学时期，张伟博和室友赵博、同学杨毅在看过一场现场演出后，决定一起组建乐队。南青从校园里的伙伴关系出发，逐渐走向自己的舞台。",
+      "displayDate": "大学时期",
+      "eventDate": null,
+      "eventDatePrecision": "unknown",
+      "sortOrder": 20,
+      "sortBasis": "人生阶段：大学，早于已收录发行；不推断2016或2017。",
+      "artistIds": [
+        "nanqing"
+      ],
+      "image": null,
+      "sourceIds": [
+        "interview-bizmode-20231111"
+      ],
+      "interviewPublishedDate": "2023-11-11"
+    },
+    {
       "eventId": "release-nanqing_march",
       "albumId": "nanqing_march",
       "artistId": "nanqing",
@@ -774,7 +812,11 @@ window.MUSIC_CONTENT = {
         "label": "首次公开发行日待核"
       },
       "alternatePlatformDates": [],
-      "warning": null
+      "warning": null,
+      "type": "release",
+      "displayDate": "2020 / 03 / 11",
+      "sortOrder": 30,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
     },
     {
       "eventId": "release-nanqing_four_seasons",
@@ -796,7 +838,31 @@ window.MUSIC_CONTENT = {
         "label": "首次公开发行日待核"
       },
       "alternatePlatformDates": [],
-      "warning": null
+      "warning": null,
+      "type": "release",
+      "displayDate": "2020 / 06 / 30",
+      "sortOrder": 40,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
+    },
+    {
+      "eventId": "story-zanshi-formation",
+      "type": "story",
+      "title": "赞诗组建｜一顿夜宵之后",
+      "description": "2021年，几位后来成为赞诗成员的乐手，为南青的演出担任嘉宾。演出后的夜宵，把“再一起玩点新东西”的想法变成了另一支乐队。",
+      "displayDate": "2021",
+      "eventDate": "2021",
+      "eventDatePrecision": "year",
+      "sortOrder": 45,
+      "sortBasis": "按已知年份放在2021阶段开头；不主张与同年发行的日级先后。",
+      "artistIds": [
+        "nanqing",
+        "zanshi"
+      ],
+      "image": null,
+      "sourceIds": [
+        "interview-streetvoice-20230216"
+      ],
+      "interviewPublishedDate": "2023-02-16"
     },
     {
       "eventId": "release-nanqing_streetless_city",
@@ -818,7 +884,11 @@ window.MUSIC_CONTENT = {
         "label": "首次公开发行日待核"
       },
       "alternatePlatformDates": [],
-      "warning": null
+      "warning": null,
+      "type": "release",
+      "displayDate": "2021 / 12 / 24",
+      "sortOrder": 50,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
     },
     {
       "eventId": "release-zanshi_jump_jinshui",
@@ -851,7 +921,36 @@ window.MUSIC_CONTENT = {
           "note": "与Apple 2022-02-18不同；具体版本关系待核。"
         }
       ],
-      "warning": "存在跨平台日期差异，首次公开发行日待核；不要按最早或最晚日期自动消解。"
+      "warning": "存在跨平台日期差异，首次公开发行日待核；不要按最早或最晚日期自动消解。",
+      "type": "release",
+      "displayDate": "2022 / 02 / 18",
+      "sortOrder": 60,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。",
+      "stories": [
+        {
+          "eventId": "story-jump-jinshui-rerecord",
+          "type": "story",
+          "title": "到山里重新录一次",
+          "description": "完成雏形后，赞诗来到西安秦岭一带的录音棚，重新录制《跳金水》。在共同创作中，乐队逐渐找到了彼此音乐兴趣的交集。",
+          "displayDate": "创作背景",
+          "eventDate": null,
+          "eventDatePrecision": "unknown",
+          "sortOrder": 1,
+          "sortBasis": "附属于跳金水发行节点，仅作创作背景；不以发行日推定重录日。",
+          "artistIds": [
+            "zanshi"
+          ],
+          "image": {
+            "path": "assets/covers/zanshi_jump_jinshui.jpg",
+            "role": "album_cover",
+            "note": "沿用该节点专辑封面，不代表重录现场。"
+          },
+          "sourceIds": [
+            "interview-streetvoice-20230216"
+          ],
+          "interviewPublishedDate": "2023-02-16"
+        }
+      ]
     },
     {
       "eventId": "release-nanqing_scatter_wealth",
@@ -873,7 +972,30 @@ window.MUSIC_CONTENT = {
         "label": "首次公开发行日待核"
       },
       "alternatePlatformDates": [],
-      "warning": null
+      "warning": null,
+      "type": "release",
+      "displayDate": "2023 / 02 / 08",
+      "sortOrder": 70,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
+    },
+    {
+      "eventId": "story-zanshi-rehearsal-life",
+      "type": "story",
+      "title": "创作日常｜排练结束，去隔壁",
+      "description": "在2023年的采访里，成员们说，当时大家住在同一个小区，经常到沛恒的琴行排练，结束后再去隔壁网吧打游戏。一起做音乐，也一起消磨日常。",
+      "displayDate": "2023 · 采访片段",
+      "eventDate": null,
+      "eventDatePrecision": "unknown",
+      "sortOrder": 75,
+      "sortBasis": "按2023年采访记录的阶段编排；事件具体日期未知，发表日不作为事件日期。",
+      "artistIds": [
+        "zanshi"
+      ],
+      "image": null,
+      "sourceIds": [
+        "interview-streetvoice-20230216"
+      ],
+      "interviewPublishedDate": "2023-02-16"
     },
     {
       "eventId": "release-nanqing_i_wish_you_do_too_live",
@@ -896,7 +1018,11 @@ window.MUSIC_CONTENT = {
         "label": "首次公开发行日待核"
       },
       "alternatePlatformDates": [],
-      "warning": null
+      "warning": null,
+      "type": "release",
+      "displayDate": "2024 / 11 / 11",
+      "sortOrder": 80,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
     },
     {
       "eventId": "release-zanshi_shennong_vol1",
@@ -918,7 +1044,11 @@ window.MUSIC_CONTENT = {
         "label": "首次公开发行日待核"
       },
       "alternatePlatformDates": [],
-      "warning": "Qobuz搜索索引存在2025-02-28日期；本包只显示明确归属于Apple的2025-03-01，不猜测时区原因。"
+      "warning": "Qobuz搜索索引存在2025-02-28日期；本包只显示明确归属于Apple的2025-03-01，不猜测时区原因。",
+      "type": "release",
+      "displayDate": "2025 / 03 / 01",
+      "sortOrder": 90,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
     },
     {
       "eventId": "release-nanqing_hunter_and_love",
@@ -942,7 +1072,11 @@ window.MUSIC_CONTENT = {
         "label": "已核实的数字发行日"
       },
       "alternatePlatformDates": [],
-      "warning": null
+      "warning": null,
+      "type": "release",
+      "displayDate": "2025 / 05 / 04",
+      "sortOrder": 100,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
     },
     {
       "eventId": "release-zanshi_shennong_vol2",
@@ -965,7 +1099,11 @@ window.MUSIC_CONTENT = {
         "label": "首次公开发行日待核"
       },
       "alternatePlatformDates": [],
-      "warning": null
+      "warning": null,
+      "type": "release",
+      "displayDate": "2026 / 06 / 20",
+      "sortOrder": 110,
+      "sortBasis": "沿用既有专辑顺序及选定平台发行日期。"
     }
   ],
   "styleDescriptions": [
@@ -1283,6 +1421,22 @@ window.MUSIC_CONTENT = {
       "caveats": [
         "网易song ID和独立歌曲URL不可见，保留null。",
         "时长为截图秒级显示值，不是毫秒元数据或实际音频测量值。"
+      ]
+    },
+    {
+      "sourceId": "interview-bizmode-20231111",
+      "title": "南青乐队｜秋日南青",
+      "publisher": "商界时尚 BIZMODE（搜狐号）",
+      "author": "宋继文",
+      "publishedDate": "2023-11-11",
+      "interviewDate": "2023-09-15",
+      "url": "https://www.sohu.com/a/735616153_121630281",
+      "sourceType": "original_band_interview",
+      "verifiedStatus": "verified",
+      "scope": "大学时期看完演出后，与室友赵博、同学杨毅组建南青。",
+      "caveats": [
+        "成立年份与其他采访冲突，对外仅显示大学时期。",
+        "摄影作品未确认转载许可，不加入发布资源。"
       ]
     }
   ],

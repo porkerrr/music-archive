@@ -1,7 +1,7 @@
 window.MUSIC_EVENTS = [
   {
     "id": "huidang-20261212",
-    "type": "event",
+    "type": "concert",
     "status": "upcoming",
     "statusLabel": "演出预告",
     "date": "2026-12-12",

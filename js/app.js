@@ -33,9 +33,26 @@
     navigation.go('works');shelf.setFilter(button.dataset.band);document.getElementById('collection').scrollIntoView();document.querySelector(`[data-filter="${button.dataset.band}"]`).focus({preventScroll:true});
   }));
   const timeline=document.getElementById('timeline-content');
-  timeline.innerHTML=content.releaseTimeline.map(event=>{
-    const album=byId.get(event.albumId);
-    return `<article class="timeline-entry"><div class="timeline-node"><time class="timeline-date" datetime="${escape(event.date)}">${escape(event.date.replaceAll('-',' / '))}</time><button class="timeline-album" data-timeline-album="${escape(album.id)}" aria-label="查看《${escape(event.title)}》专辑"><img src="${escape(album.cover.path)}" alt="" width="96" height="96"><h2>${escape(event.title)}</h2></button><p>${escape(album.artistNameSource)} · ${escape(event.description)}</p></div></article>`;
+  const sources=new Map(content.sources.map(source=>[source.sourceId,source]));
+  function sourceLink(event){
+    const source=sources.get(event.sourceIds?.[0]);
+    return source && /^https:\/\//.test(source.url)?`<a class="timeline-source" href="${escape(source.url)}" target="_blank" rel="noopener noreferrer" aria-label="${escape(event.title)}：出处">出处</a>`:'';
+  }
+  // Only release nodes join the album catalog. Unknown types never dereference it.
+  timeline.innerHTML=[...content.releaseTimeline].sort((a,b)=>a.sortOrder-b.sortOrder).map(event=>{
+    if(!['release','story'].includes(event.type))return '';
+    const album=event.type==='release'?byId.get(event.albumId):null;
+    if(event.type==='release'&&!album)return '';
+    const date=event.type==='release'?event.date:event.eventDate;
+    const dateHtml=date?`<time class="timeline-date" datetime="${escape(date)}">${escape(event.displayDate)}</time>`:`<span class="timeline-date">${escape(event.displayDate)}</span>`;
+    const picture=album?album.cover:event.image;
+    const image=picture?`<img class="timeline-image" src="${escape(picture.path)}" alt="${album?'':escape(picture.alt||'')}" width="112" height="112" loading="lazy">`:'';
+    // Cover remains clickable; the adjacent title is the single keyboard/AT target.
+    const media=album?`<button class="timeline-media timeline-cover" data-timeline-album="${escape(album.id)}" tabindex="-1" aria-hidden="true">${image}</button>`:image;
+    const heading=album?`<button class="timeline-album" data-timeline-album="${escape(album.id)}" aria-label="查看《${escape(event.title)}》专辑">${escape(event.title)}</button>`:escape(event.title);
+    const stories=event.stories||[];
+    const copy=`<div class="timeline-copy"><h2>${heading}</h2><p>${album?`${escape(album.artistNameSource)} · `:''}${escape(event.description)}</p>${stories.map(story=>`<section class="timeline-background" aria-labelledby="${escape(story.eventId)}"><h3 id="${escape(story.eventId)}">${escape(story.title)}</h3><p>${escape(story.description)}</p></section>`).join('')}${sourceLink(stories[0]||event)}</div>`;
+    return `<article class="timeline-entry" data-type="${escape(event.type)}" data-event="${escape(event.eventId)}"><div class="timeline-node${picture?'':' timeline-text-only'}">${dateHtml}${media}${copy}</div></article>`;
   }).join('');
   timeline.addEventListener('click',event=>{const button=event.target.closest('[data-timeline-album]');if(button)navigation.openAlbum(button.dataset.timelineAlbum);});
   navigation=window.createArchiveNavigation({onOpenAlbum:id=>shelf.selectAlbum(id)});

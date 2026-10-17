@@ -1,6 +1,6 @@
 (function(global){
   'use strict';
-  const events=(global.MUSIC_EVENTS||[]).filter(event=>event.type==='event');
+  const events=(global.MUSIC_EVENTS||[]).filter(event=>event.type==='concert');
   const timeline=document.getElementById('timeline-content');
   if(!timeline||!events.length)return;
   const make=(tag,cls,text)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(text)el.textContent=text;return el;};
@@ -76,12 +76,13 @@
   });
   viewport.addEventListener('pointercancel',()=>{gesture=null;});viewport.addEventListener('lostpointercapture',()=>{gesture=null;});
   for(const item of events){
-    const article=make('article','timeline-entry timeline-event');article.dataset.type='event';article.dataset.event=item.id;
+    const article=make('article','timeline-entry timeline-event');article.dataset.type='concert';article.dataset.event=item.id;
     const node=make('div','timeline-node'),date=make('time','timeline-date',item.date.replaceAll('-','.'));date.dateTime=item.date;
     const badge=make('p','event-status',item.statusLabel);
-    const button=make('button','timeline-event-open');button.type='button';button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','event-gallery');button.setAttribute('aria-label',`${item.title}，查看五张演出海报`);
+    const button=make('button','timeline-event-open timeline-media');button.type='button';button.setAttribute('aria-haspopup','dialog');button.setAttribute('aria-controls','event-gallery');button.setAttribute('aria-label',`${item.title}，查看${item.gallery.length}张演出海报`);
     const image=make('img','event-preview');image.src=item.preview;image.alt=item.title+' · 山水日出主视觉';image.width=item.previewWidth;image.height=item.previewHeight;image.loading='lazy';image.decoding='async';
-    button.append(image,make('h2','',item.title));button.addEventListener('click',()=>open(item,button));
-    node.append(date,badge,button,make('p','event-subtitle',item.subtitle),make('p','event-location',`${item.time} · ${item.venue}`));article.append(node);timeline.append(article);
+    button.append(image);button.addEventListener('click',()=>open(item,button));
+    const copy=make('div','timeline-copy');copy.append(make('h2','',item.title),badge,make('p','event-subtitle',item.subtitle),make('p','event-location',`${item.time} · ${item.venue}`));
+    node.append(date,button,copy);article.append(node);timeline.append(article);
   }
 }(window));
