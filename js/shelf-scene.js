@@ -75,8 +75,19 @@
         image.src = data;
       });
     }
-    const parts = global.ARCHIVE_CASE_TEXTURES;
-    const caseTextureReady = !caseResources.setPartTexture ? Promise.resolve() : Promise.all(
+    // The optional disc/clear-plastic bitmap must not block the existing scene
+    // or text. Keep one shared resource set and attach each map when decoded.
+    const partNames = ['disc','hub','plastic-top','plastic-bottom','plastic-spine','plastic-right'];
+    for (const name of partNames) {
+      const material = caseResources.materials?.[name === 'disc' ? 'discMaterial' : name];
+      if (material) material.opacity = 0;
+    }
+    let partsStarted = false;
+    function attachCaseTextures() {
+      if (disposed || partsStarted || !caseResources.setPartTexture) return;
+      partsStarted = true; canvas.dataset.textureState = 'loading';
+      const parts = global.ARCHIVE_CASE_TEXTURES;
+      Promise.all(
       ['disc','hub','plastic-top','plastic-bottom','plastic-spine','plastic-right'].map(name => new Promise((resolve,reject) => {
         const data=parts && parts[name];
         if (!data || !data.startsWith('data:image/png;base64,')) { reject(new Error('本地分部件贴图缺失：'+name)); return; }
@@ -84,12 +95,24 @@
         image.onload=()=>{
           if(!disposed){const texture=new THREE.Texture(image);texture.colorSpace=THREE.SRGBColorSpace;
             texture.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());texture.needsUpdate=true;
-            caseResources.setPartTexture(name,texture);}
+            caseResources.setPartTexture(name,texture);
+            const material=caseResources.materials?.[name==='disc'?'discMaterial':name];
+            if(material)material.opacity=1;
+            onInvalidate();}
           resolve();
         };
         image.onerror=()=>reject(new Error('本地分部件贴图解码失败：'+name));image.src=data;
-      })));
-    const ready = Promise.all([caseTextureReady, ...albums.map(async album => {
+      }))).then(()=>{if(!disposed)canvas.dataset.textureState='ready';})
+        .catch(()=>{if(!disposed)canvas.dataset.textureState='unavailable';});
+    }
+    if (global.ARCHIVE_CASE_TEXTURES) attachCaseTextures();
+    else {
+      const partScript = document.querySelector('script[src="assets/textures/case/cd-transparent.js"]');
+      canvas.dataset.textureState = 'loading';
+      partScript?.addEventListener('load', attachCaseTextures, {once:true});
+      partScript?.addEventListener('error', () => {if(!disposed)canvas.dataset.textureState='unavailable';}, {once:true});
+    }
+    const ready = Promise.all(albums.map(async album => {
       const texture = await loadTexture(album);
       if (!texture || disposed) return;
       // Read at completion, not at load start: user may toggle during decode.
@@ -97,7 +120,7 @@
       item.root.userData.albumId = album.id;
       item.root.traverse(object => { object.userData.albumId = album.id; });
       cases.set(album.id, item); scene.add(item.root);
-    })]).then(() => { if (disposed) throw new Error('场景已释放'); });
+    })).then(() => { if (disposed) throw new Error('场景已释放'); });
 
     function resize() {
       const box = host.getBoundingClientRect();

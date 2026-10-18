@@ -21,13 +21,15 @@
     currentDetailId=id;detail.dataset.album=id;
     const album=byId.get(id),copy=content.albums.find(a=>a.albumId===id),background=view.background(copy);
     const credits=copy.albumCredits,entries=credits?.status==='verified'?[...(credits.performers||[]),...(credits.production||[])]:[];
-    detail.innerHTML=`<div class="album-intro"><h2 id="album-title">${escape(album.displayTitle)}</h2><p class="album-meta">${escape(album.artistNameSource)} · ${escape(album.releaseType)} · ${album.trackCount} 首<br><time datetime="${escape(album.platformReleaseDate)}">${escape(album.platformReleaseDate)}</time></p>${background?`<p class="album-background">${escape(background)}</p>`:''}</div>
+    detail.innerHTML=`<div class="album-intro detail-header"><div class="detail-art"><img class="detail-cover" src="${escape(album.cover.path)}" alt="${escape(album.displayTitle)}封面" width="116" height="116"></div><div><h2 id="album-title">${escape(album.displayTitle)}</h2><p class="album-meta">${escape(album.artistNameSource)} · ${escape(album.releaseType)} · ${album.trackCount} 首<br><time datetime="${escape(album.platformReleaseDate)}">${escape(album.platformReleaseDate)}</time></p></div></div>
+      <div class="detail-body">${background?`<p class="album-background">${escape(background)}</p>`:''}
       <div class="track-heading"><h3>曲目</h3><span>${album.trackCount} 首</span></div><ol class="track-list">${album.tracks.map(track=>`<li class="track-row" data-track-row="${escape(track.id)}"><span class="track-order">${String(track.order).padStart(2,'0')}</span>${playback?`<button class="track-select" data-track="${escape(track.id)}">${escape(track.title)}</button>`:`<span class="track-name">${escape(track.title)}</span>`}<span class="track-duration">${view.duration(track.durationSecondsSource)}</span></li>`).join('')}</ol>
-      ${entries.length?`<section class="album-credits"><h3>专辑制作署名</h3><dl class="credits-grid">${entries.map(e=>`<div><dt>${escape(e.role)}</dt><dd>${escape(e.name)}</dd></div>`).join('')}</dl></section>`:''}`;
+      ${entries.length?`<section class="album-credits"><h3>专辑制作署名</h3><dl class="credits-grid">${entries.map(e=>`<div><dt>${escape(e.role)}</dt><dd>${escape(e.name)}</dd></div>`).join('')}</dl></section>`:''}</div>`;
     detail.hidden=false;return true;
   }
   if(player)detail.addEventListener('click',event=>{const button=event.target.closest('[data-track]');if(button)player.select(currentDetailId,button.dataset.track,{autoplay:true});});
-  const shelf=window.createArchiveShelf({albums,onSelect:openDetail,onNavigate:id=>navigation.openAlbum(id)});
+  const presentation=window.createArchiveDetail({root:detail,render:openDetail});
+  const shelf=window.createArchiveShelf({albums,onSelect:openDetail,onPhase:presentation.update,onNavigate:id=>shelf.selectAlbum(id)});
   document.getElementById('about-content').innerHTML=content.artists.map(artist=>`<article class="bio"><h2>${escape(artist.displayName)}</h2><div class="bio-copy">${artist.bio?.text?`<p>${escape(artist.bio.text)}</p>`:''}${artist.entityType==='band'?`<button class="text-link" data-band="${escape(artist.artistId)}">浏览${escape(artist.displayName)}作品 →</button>`:''}</div></article>`).join('');
   document.querySelectorAll('[data-band]').forEach(button=>button.addEventListener('click',()=>{
     navigation.go('works');shelf.setFilter(button.dataset.band);document.getElementById('collection').scrollIntoView();document.querySelector(`[data-filter="${button.dataset.band}"]`).focus({preventScroll:true});

@@ -1,0 +1,21 @@
+/* Local album color never reaches the page, navigation, or 3D shelf. */
+.album-detail{--album-accent:var(--album-light,#3c403a);min-height:240px;border-top-color:transparent;transition:border-color 260ms ease;overflow-anchor:none}
+html[data-theme=dark] .album-detail{--album-accent:var(--album-dark,#c4c7bf)}
+.album-detail[data-reveal=header],.album-detail[data-reveal=body]{border-top-color:color-mix(in srgb,var(--album-accent) 45%,transparent)}
+.detail-header,.detail-body{opacity:0;transform:translateY(5px);visibility:hidden;transition:opacity 260ms ease,transform 260ms ease,visibility 260ms}
+.album-detail[data-reveal=header] .detail-header,.album-detail[data-reveal=body] .detail-header,.album-detail[data-reveal=body] .detail-body{opacity:1;transform:none;visibility:visible}
+/* Hide immediately on replacement/close; do not crossfade mismatched albums. */
+.album-detail[data-reveal=pending] .detail-header,.album-detail[data-reveal=pending] .detail-body,.album-detail[data-reveal=closed] .detail-header,.album-detail[data-reveal=closed] .detail-body{transition:none}
+.detail-header{display:grid;grid-template-columns:116px minmax(0,1fr);gap:30px;align-items:center;margin-bottom:30px;max-width:none}
+.detail-cover{display:block;width:116px;height:116px;object-fit:contain;align-self:start}
+.detail-art{position:relative;align-self:start}.detail-art:has(.image-missing)::after{content:"封面暂不可用";position:absolute;inset:0;display:grid;place-items:center;border:1px solid var(--rule);font-size:12px;text-align:center;color:var(--muted)}
+.detail-cover.image-missing{visibility:hidden}
+.detail-header h2{margin:0 0 12px;font-size:clamp(28px,3.4vw,46px);line-height:1.5;letter-spacing:.035em}
+.detail-header .album-meta{margin:0;color:var(--muted);line-height:1.9}
+.detail-header time{color:var(--album-accent);transition:color 260ms ease;font-variant-numeric:tabular-nums}
+.detail-body .album-background{max-width:850px;margin:0 0 36px;color:var(--ink)}
+.album-detail .track-heading{border-bottom:1px solid color-mix(in srgb,var(--album-accent) 45%,transparent);padding-bottom:12px;transition:border-color 260ms ease}
+.album-detail .track-heading h3{border-left:2px solid var(--album-accent);padding-left:12px;transition:border-color 260ms ease}
+.album-detail .track-row:first-child{border-top:0}
+@media(max-width:600px){.album-detail{min-height:210px}.detail-header{grid-template-columns:76px minmax(0,1fr);gap:18px;margin-bottom:26px}.detail-cover{width:76px;height:76px}.detail-header h2{font-size:25px;letter-spacing:0;line-height:1.5;margin-bottom:10px}.detail-header .album-meta{font-size:13px}.detail-body .album-background{margin-bottom:28px}}
+@media(prefers-reduced-motion:reduce){.detail-header,.detail-body{transform:none!important;transition:opacity 60ms linear!important}.album-detail,.detail-header time,.album-detail .track-heading,.album-detail .track-heading h3{transition-duration:60ms!important}}

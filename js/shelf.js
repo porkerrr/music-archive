@@ -1,6 +1,6 @@
 (function (global) {
   'use strict';
-  global.createArchiveShelf = function ({ albums, onSelect, onNavigate }) {
+  global.createArchiveShelf = function ({ albums, onSelect, onNavigate, onPhase = () => {} }) {
     const stage = document.getElementById('shelf-stage');
     const track = document.getElementById('shelf-track');
     const status = document.getElementById('shelf-status');
@@ -42,7 +42,7 @@
       ids: albums.map(album => album.id), reduced: () => motion.matches || Boolean(failureReason), onSelect,
       onChange(nextState) {
         if (nextState.phase === 'closing' && state?.phase !== 'closing') { closePull = pull; closeLid = lid; }
-        state = nextState; updateUI(); requestFrame();
+        state = nextState; onPhase(state); updateUI(); requestFrame();
       }
     });
     state = controller.snapshot();
@@ -58,7 +58,7 @@
       if (lastUIKey === key) return; lastUIKey = key;
       title.textContent = album?.displayTitle || '';
       stage.setAttribute('aria-label', `唱片架，${album?.displayTitle || ''}`);
-      const messages = { browsing:'移动鼠标或横向拖动浏览，轻点唱片打开下方介绍。', opening:'正在开盒，下方专辑介绍已更新。', selected:'已开盒。可选择另一张；点唱片架空白处或 Esc 收回。', closing:'正在合盒，下方介绍保留。' };
+      const messages = { browsing:'移动鼠标或横向拖动浏览，轻点唱片打开下方介绍。', opening:'正在开盒，专辑介绍即将展开。', selected:'已开盒。可选择另一张；点唱片架空白处或 Esc 收回。', closing:'正在合盒，专辑介绍已收起。' };
       status.textContent = ready ? `${album?.displayTitle || ''}。${messages[state.phase]}` : failureReason || '3D 加载中，也可使用下方专辑列表。';
     }
     function requestFrame() { if (!frameId && viewable && !document.hidden && ready) frameId = requestAnimationFrame(frame); }
